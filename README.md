@@ -67,3 +67,7 @@ With [hub](https://github.com/github/hub):
 > fish_update_git_aliases
 > pull-request
 ```
+
+### `fish_remove_git_aliases`
+
+Erase all the Git aliases.
