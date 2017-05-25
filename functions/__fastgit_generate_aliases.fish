@@ -22,12 +22,16 @@ function __fastgit_generate_aliases
         echo "function __fastgit_remove_aliases"
         echo "    if test \"\$__fastgit_global_commands\" = 'true'"
         for command in $commands
-            echo "        functions -e '$command'"
+            if not type -q "$command"
+                echo "        functions -e '$command'"
+            end
         end
         echo "    end"
         echo "    if test \"\$__fastgit_fugitive_commands\" = 'true'"
         for command in $commands
-            echo "        functions -e 'G$command'"
+            if not type -q "G$command"
+                echo "        functions -e 'G$command'"
+            end
         end
         echo "    end"
         echo "end"
