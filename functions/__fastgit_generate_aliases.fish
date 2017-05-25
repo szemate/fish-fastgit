@@ -3,14 +3,14 @@ function __fastgit_generate_aliases
         echo "# Generated with 'fish_update_git_aliases'"
         echo
 
-        echo "if test \$__fastgit_global_commands = 'true'"
+        echo "if test \"\$__fastgit_global_commands\" = 'true'"
         for command in (__fastgit_git_commands)
             __fastgit_global_alias $command
         end
         echo "end"
         echo
 
-        echo "if test \$__fastgit_fugitive_commands = 'true'"
+        echo "if test \"\$__fastgit_fugitive_commands\" = 'true'"
         for command in (__fastgit_git_commands)
             __fastgit_fugitive_alias $command
         end
