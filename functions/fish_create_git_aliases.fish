@@ -1,7 +1,9 @@
 function __fish_create_git_aliases -a abbrev_type
     set -l git_commands \
-        (git | perl -nle 'print $1 if /^   (\w+) /') \
-        (git config -l | perl -nle 'print $1 if /^alias\.(\w+)/')
+        (git help -a | string match -r '  [a-z].*' | string trim | \
+            string replace -ra ' +' ' ' | string split ' ') \
+        (git config --get-regexp '^alias\.' | string replace 'alias.' '' | \
+            string replace -r ' .*' '')
     for command in $git_commands
         set -l abbrev
         switch "$abbrev_type"
