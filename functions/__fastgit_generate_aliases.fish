@@ -1,9 +1,4 @@
-set -g __fastgit_global_commands 'false'
-set -g __fastgit_fugitive_commands 'false'
-
 function __fastgit_generate_aliases
-    set -l generated_file (dirname (status -f))/__fastgit_aliases.fish
-
     begin
         echo "# Generated with 'fish_update_git_aliases'"
         echo
@@ -20,11 +15,7 @@ function __fastgit_generate_aliases
             __fastgit_fugitive_alias $command
         end
         echo "end"
-    end > $generated_file
-
-    if test "$argv[1]" = '--source'
-        source $generated_file
-    end
+    end > (dirname (status -f))/__fastgit_aliases.fish
 end
 
 function __fastgit_git_commands
