@@ -6,7 +6,7 @@ function __fastgit_generate_aliases
         echo "if test \"\$__fastgit_global_commands\" = 'true'"
         for command in $commands
             if not type -q "$command"
-                echo "    alias $command='git $command'"
+                __fastgit_global_alias $command
             end
         end
         echo -e "end\n"
@@ -14,7 +14,7 @@ function __fastgit_generate_aliases
         echo "if test \"\$__fastgit_fugitive_commands\" = 'true'"
         for command in $commands
             if not type -q "G$command"
-                echo "    alias G$command='git $command'"
+                __fastgit_fugitive_alias $command
             end
         end
         echo -e "end\n"
@@ -45,4 +45,18 @@ function __fastgit_git_commands
         git config --get-regexp '^alias\.' | string replace 'alias.' '' | \
             string replace -r ' .*' ''
     end | sort | uniq
+end
+
+function __fastgit_global_alias -a command
+    echo "    function $command"
+    echo "        git $command \$argv"
+    echo "    end"
+    echo ""
+end
+
+function __fastgit_fugitive_alias -a command
+    echo "    function G$command"
+    echo "        git $command \$argv"
+    echo "    end"
+    echo ""
 end
