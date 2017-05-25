@@ -48,15 +48,15 @@ function __fastgit_git_commands
 end
 
 function __fastgit_global_alias -a command
-    echo "    function $command"
-    echo "        git $command \$argv"
-    echo "    end"
-    echo ""
+    echo    "    function $command"
+    echo    "        git $command \$argv"
+    echo -e "    end\n"
+    echo -e "    complete -c $command -w git-$command\n"
 end
 
 function __fastgit_fugitive_alias -a command
-    echo "    function G$command"
-    echo "        git $command \$argv"
-    echo "    end"
-    echo ""
+    echo    "    function G$command"
+    echo    "        git $command \$argv"
+    echo -e "    end\n"
+    echo -e "    complete -c G$command -w git-$command\n"
 end
