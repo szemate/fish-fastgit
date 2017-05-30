@@ -1,5 +1,5 @@
 function __fastgit_generate_aliases
-    set -l commands (__fastgit_git_commands)
+    set -l commands (__fastgit_useful_git_commands)
     begin
         echo -e "# Generated with 'fish_update_git_aliases'\n"
 
@@ -38,7 +38,27 @@ function __fastgit_generate_aliases
     end > (dirname (status -f))/__fastgit_aliases.fish
 end
 
-function __fastgit_git_commands
+function __fastgit_useful_git_commands
+    for command in (__fastgit_all_git_commands)
+        switch $command
+            case 'credential-*' \
+                 'remote-*' \
+                 add--interactive \
+                 fmt-merge-msg \
+                 receive-pack \
+                 sh-i18n--envsubst \
+                 shell \
+                 submodule--helper \
+                 upload-archive \
+                 upload-pack
+                # Skip these
+            case '*'
+                echo $command
+        end
+    end
+end
+
+function __fastgit_all_git_commands
     begin
         git help -a | string match -r '  [a-z].*' | string trim | \
             string replace -ra ' +' ' ' | string split ' '
